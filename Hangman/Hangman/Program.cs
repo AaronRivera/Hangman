@@ -43,8 +43,6 @@ namespace Hangman
 
             //flag to control the user types in a valid user
             bool validateUser = false;
-
-
             //while the user keeps entering other than characters
             while (!validateUser)
             {
@@ -56,10 +54,17 @@ namespace Hangman
                 //if the string is correct
                 if (Validate(userName))
                 {
-                    //changes the flag to true
-                    validateUser = true;
-                    //assigns the user name to global gamer name
-                    gamerName = userName;
+                    if (userName.Length < 15)
+                    {
+                        //changes the flag to true
+                        validateUser = true;
+                        //assigns the user name to global gamer name
+                        gamerName = userName;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Name should be less than 15 characters");
+                    }
                 }
                 else
                 { ShowError(); }
@@ -110,7 +115,7 @@ namespace Hangman
             //while the user hasnt won and the chances are
             while (!win && chances > 0)
             {
-               //flag to validate the input
+                //flag to validate the input
                 bool validateOK = false;
 
 
@@ -134,7 +139,7 @@ namespace Hangman
                         validateOK = true;
                     }
                     else
-                        // shows error 
+                    // shows error 
                     { ShowError(); }
                 }
 
@@ -160,7 +165,7 @@ namespace Hangman
                             //if response equals yes or y
                             if (response == "YES" || response == "Y")
                             {
-                               //calls the function to play another game
+                                //calls the function to play another game
                                 playGame2 = true;
                                 Hangman();
                             }
@@ -172,7 +177,7 @@ namespace Hangman
                                 System.Environment.Exit(0);
                             }
                             else
-                                //displays error
+                            //displays error
                             { Console.WriteLine("Type in Yes or No!!"); }
 
 
@@ -200,12 +205,12 @@ namespace Hangman
                         //jumps to the end of the loop
                         continue;
                     }
-                        //check if the incorrect guess is contained withiin the incorerct guess
+                    //check if the incorrect guess is contained withiin the incorerct guess
                     else if (incorrectGuesses.Contains(guess))
                     {
                         //shows incorrect message
                         ShowRepeated(guess.ToString().ToUpper(), "IT WAS INCORRECT");
-                       //jumps to the end of the loop
+                        //jumps to the end of the loop
                         continue;
                     }
 
@@ -224,7 +229,7 @@ namespace Hangman
                             //if that word equals to the guessed letter
                             if (randomWord[i] == guess)
                             {
-                               //unmask the letter
+                                //unmask the letter
                                 displayToPlayer[i] = randomWord[i];
                                 //increases the letters revealed 
                                 lettersRevealed++;
@@ -232,7 +237,7 @@ namespace Hangman
                         }
                         //if the leteters revealed equals to the random word lenght 
                         if (lettersRevealed == randomWord.Length)
-                            //then change the win flag to true
+                        //then change the win flag to true
                         { win = true; }
                     }
                     else
@@ -245,7 +250,6 @@ namespace Hangman
                         ShowNoInString(guess.ToString().ToUpper());
                     }
 
-
                     //refreshes the game 
                     //calls game intructions
                     Instructions();
@@ -253,10 +257,6 @@ namespace Hangman
                     DisplaysName();
                     //displays the track of letters guessed and the word to guess
                     TrackLetters();
-
-
-
-
                 }
 
             }
@@ -294,13 +294,13 @@ namespace Hangman
                     System.Environment.Exit(0);
                 }
                 else
-                    //shows error 
+                //shows error 
                 { Console.WriteLine("Type in Yes or No!!"); }
 
 
             }
 
-            
+
         }
 
 
@@ -382,7 +382,7 @@ namespace Hangman
             Console.WriteLine("");
             Console.WriteLine("");
             Console.WriteLine("        ..........................................................");
-            Console.WriteLine("                YOU ALREADY ENTERED " + character + " " + message );
+            Console.WriteLine("                YOU ALREADY ENTERED " + character + " " + message);
             Console.WriteLine("        ..........................................................");
             //pauses for ten secs
             System.Threading.Thread.Sleep(1000);
@@ -407,7 +407,7 @@ namespace Hangman
         /// <summary>
         /// keeps track of letter guessed and the hidden letters to guess
         /// </summary>
-        public static void TrackLetters() 
+        public static void TrackLetters()
         {
             //Console.WriteLine("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
             Console.ForegroundColor = ConsoleColor.Cyan;
@@ -415,7 +415,7 @@ namespace Hangman
             Console.WriteLine("                           | LETTERS GUESSED: " + letterG);
             Console.ResetColor();
             Console.WriteLine("                           +++++++++++++++++++++++++++++++++++++++++++++++");
-            Console.WriteLine( "");
+            Console.WriteLine("");
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("                         W O R D  T O  G U E S S");
             Console.ResetColor();
@@ -424,31 +424,31 @@ namespace Hangman
             Console.Write("              (" + displayToPlayer.Length + ") Letters ");
             Console.ForegroundColor = ConsoleColor.Green;
             //displays each character and gives it an space
-            for (int i = 0; i < displayToPlayer.Length; i++ )
+            for (int i = 0; i < displayToPlayer.Length; i++)
             {
-                Console.Write("  "+ displayToPlayer[i]);
+                Console.Write("  " + displayToPlayer[i]);
             }
             Console.ResetColor();
             Console.WriteLine("");
             Console.WriteLine("        ..........................................................");
 
-           
+
         }
 
-   
+
 
 
         /// <summary>
-         /// Dispalys teh name, clue , and chances left
+        /// Dispalys teh name, clue , and chances left
         /// </summary>
         public static void DisplaysName()
         {
             Console.ForegroundColor = ConsoleColor.Cyan;
             // Dispalys teh name, clue , and chances left
-            Console.WriteLine("|   GAMER: " + gamerName + "    | THE CLUE IS: " + clue  + "   | GUESSES LEFT: " + chances);
+            Console.WriteLine("|   GAMER: " + gamerName + "    | THE CLUE IS: " + clue + "   | GUESSES LEFT: " + chances);
             Console.ResetColor();
             Console.WriteLine("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-            
+
 
 
         }
@@ -458,7 +458,7 @@ namespace Hangman
         /// </summary>
         public static void GeneratingRandom()
         {
-           // banner
+            // banner
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("");
             Console.WriteLine("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
@@ -484,7 +484,7 @@ namespace Hangman
         {
             //validates if the string is empty
             if (inputS != "")
-                //checks if the string contains characters only
+            //checks if the string contains characters only
             { return inputS.All(Char.IsLetter); }
             else
             {
@@ -492,7 +492,7 @@ namespace Hangman
                 return false;
             }
         }
-        
+
 
         /// <summary>
         /// Displays the game instructions
@@ -524,9 +524,9 @@ namespace Hangman
             //creates a randomnumber
             Random rnd = new Random();
             //list of words
-            List<string> words = new List<string>() { "Minneapolis", "Orchid", "Pirate", "Mayflower", "WALKINGDEAD", "UNDERARMOUR", "Hydrocodon","Batman" };
+            List<string> words = new List<string>() { "Minneapolis", "Orchid", "Pirate", "Mayflower", "WALKINGDEAD", "UNDERARMOUR", "Hydrocodon", "Batman" };
             //list of clues
-            List<String> clues = new List<string>() { "City", "Plant","People","Famous ship", "TV SHOW","FAMOUS BRAND","Prescription Drug", "Super hero"};
+            List<String> clues = new List<string>() { "City", "Plant", "People", "Famous ship", "TV SHOW", "FAMOUS BRAND", "Prescription Drug", "Super hero" };
             //gets a random word
             int randWord = rnd.Next(words.Count());
             //returns the random word and the clue
